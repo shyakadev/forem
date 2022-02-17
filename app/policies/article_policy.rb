@@ -47,13 +47,14 @@ class ArticlePolicy < ApplicationPolicy
   #       appears with the pull request)
   #
   # @note For backwards compatability purposes, we're not checking if there's a user.
+  def new?
+    true
+  end
 
   def create?
     require_user!
-    user.any_admin? && !user_suspended?
+    !user_suspended?
   end
-
-  alias new? create?
 
   alias delete_confirm? update?
 
