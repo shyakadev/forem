@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
     resources :articles, only: %i[update create destroy] do
       patch "/admin_unpublish", to: "articles#admin_unpublish"
+      patch "/admin_featured_toggle", to: "articles#admin_featured_toggle"
     end
     resources :article_mutes, only: %i[update]
     resources :comments, only: %i[create update destroy] do
@@ -156,6 +157,7 @@ Rails.application.routes.draw do
       collection do
         get "/onboarding", to: "tags#onboarding"
         get "/suggest", to: "tags#suggest", defaults: { format: :json }
+        get "/bulk", to: "tags#bulk", defaults: { format: :json }
       end
     end
     resources :stripe_active_cards, only: %i[create update destroy]
